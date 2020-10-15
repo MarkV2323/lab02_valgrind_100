@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    int x;
+    int x = 10; // fix by mark.
     cout << x << endl;
 
     return 0;
