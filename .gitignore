@@ -1,3 +1,7 @@
-examples/example1
-examples/example2
+examples/
+.clion.source.upload.marker
+cmake-build-hammer-server/
+CMakeLists.txt
+lineage.exe
 lineage
+debugVal.txt
