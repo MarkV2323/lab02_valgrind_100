@@ -6,7 +6,7 @@ using std::cout;
 using std::endl;
 
 Person::Person(char *name, Person* father, Person* mother){
-    this->name = new char[strlen(name)];
+    this->name = new char[strlen(name) + 1];
     strcpy(this->name, name);
     this->father = father;
     this->mother = mother;
@@ -16,7 +16,10 @@ Person::Person(char *name, Person* father, Person* mother){
 }
 
 Person::~Person(){
-    delete children;
+    // Person **children; // array of pointers to the kids
+    // Need to do a for loop to delete all children
+    delete [] children;
+    delete [] this->name;
 }
 
 void Person::addChild(Person *newChild){
@@ -52,6 +55,9 @@ void Person::printLineage(char dir, int level){
             father->printLineage(dir, level + 1);
         }
     }
+
+    // frees temp
+    delete [] temp;
 }
 
 /* helper function to compute the lineage
@@ -59,13 +65,24 @@ void Person::printLineage(char dir, int level){
 * if level >= 1 then returns ("great ")^(level - 1) + "grand "
 */
 char* Person::compute_relation(int level){
-    if(level == 0) return strcpy(new char[1], "");
 
-    char *temp = strcpy(new char[strlen("grand ") + 1], "grand ");;
+    if(level == 0) {
+        char* temp = new char[2];
+        memset(temp, '\0', 2);
+        return strcpy(temp, "");
+    }
+
+    int tempCap = strlen("grand ") + 1;
+    char* temp = new char[tempCap];
+    memset(temp, '\0', tempCap);
+    strcpy(temp, "grand ");
     
     for(int i = 2; i <= level; i++){
         char *temp2 = new char[strlen("great ") + strlen(temp) + 1];
         strcat(strcpy(temp2, "great "), temp);
+        // free temp because we already copied it's data above
+        delete [] temp;
+        // reassign temp to be equal to temp2
         temp = temp2;
     }
     return temp;

@@ -12,12 +12,13 @@ PersonList::PersonList(){
 }
 
 PersonList::~PersonList(){
+    // need to do a for loop to delete every person from the list & the list itself.
     delete [] theList;
 }
 
 void PersonList::addPerson(char* child_name, char* father_name, char* mother_name){
-    Person *father = 0;
-    Person *mother = 0;
+    Person *father = nullptr;
+    Person *mother = nullptr;
     
     // try to find the three names in the theList
     for(int i = 0; i < numPeople; i++){
@@ -31,14 +32,14 @@ void PersonList::addPerson(char* child_name, char* father_name, char* mother_nam
         }
     }
    
-    if(father == 0){
+    if(father == nullptr){
       // father_name is not in the theList so create a new person
-      father = new Person(father_name, 0, 0);
+      father = new Person(father_name, nullptr, nullptr);
       insertIntoList(father);
     }
-    if(mother == 0){
+    if(mother == nullptr){
       // mother_name is not in the theList so create a new person
-      mother = new Person(mother_name, 0, 0);
+      mother = new Person(mother_name, nullptr, nullptr);
       insertIntoList(mother);
     }
     Person *newChild = new Person(child_name, father, mother);
