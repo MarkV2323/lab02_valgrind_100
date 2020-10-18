@@ -16,8 +16,6 @@ Person::Person(char *name, Person* father, Person* mother){
 }
 
 Person::~Person(){
-    // Person **children; // array of pointers to the kids
-    // Need to do a for loop to delete all children
     delete [] children;
     delete [] this->name;
 }
@@ -92,8 +90,11 @@ char* Person::compute_relation(int level){
  * NOTE: t's type will be a pointer to an array of pointers
  */
 void expand(Person ***t, int *MAX){
-  Person **temp = new Person*[2 * *MAX];
+  Person **temp = new Person*[2 * *MAX]();
+  // copies *t data into temp.
   memcpy(temp, *t, *MAX * sizeof(**t));
+  // we've copied the data inside of *t to temp, its now time to free it.
+  delete [] *t;
   *MAX *= 2;
   *t = temp;
 }

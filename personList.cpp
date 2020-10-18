@@ -13,6 +13,9 @@ PersonList::PersonList(){
 
 PersonList::~PersonList(){
     // need to do a for loop to delete every person from the list & the list itself.
+    for (int i = 0; i < capacity; ++i) {
+        delete theList[i];
+    }
     delete [] theList;
 }
 
